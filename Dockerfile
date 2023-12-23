@@ -7,9 +7,9 @@ RUN apt-get update && apt-get install -y curl
 # Download the latest version of Ninja from GitHub
 RUN version=$(basename $(curl -sL -o /dev/null -w %{url_effective} https://github.com/gngpp/ninja/releases/latest)) \
     && base_url="https://github.com/gngpp/ninja/releases/expanded_assets/$version" \
-    # Lấy URL của bản phân phối dựa trên CPU x86_64 và musl libc.
+    # Get the URL of the distribution based on x86_64 CPU and musl libc
     && latest_url=https://github.com/$(curl -sL $base_url | grep -oP 'href=".*x86_64.*musl\.tar\.gz(?=")' | sed 's/href="//') \
-    # Tải tệp tar.gz và giải nén nó
+    # Download the tar.gz file and extract it
     && curl -Lo ninja.tar.gz $latest_url \
     && tar -xzf ninja.tar.gz
 
